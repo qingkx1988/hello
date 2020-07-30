@@ -1,0 +1,38 @@
+{
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 0,
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "entryPoint": [
+        "/usr/sbin/apache2",
+        "-D",
+        "FOREGROUND"
+      ],
+      "mountPoints": [
+        {
+          "containerPath": "/var/www/my-vol",
+          "sourceVolume": "my-vol"
+        }
+      ],
+      "name": "simple-app",
+      "image": "%REPOSITORY_URI%:v_%BUILD_NUMBER%",
+      "cpu": 0
+    }
+  ],
+  "volumes": [
+    {
+      "host": {
+      },
+      "name": "my-vol"
+    }
+  ],
+  "family": "ecs-cicd-jenkins-simple-app"
+}
